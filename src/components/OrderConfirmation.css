@@ -1,0 +1,30 @@
+body{
+  margin-top: 80px;
+}
+.heading{
+  text-align: center;
+}
+
+.productss{
+  display: flex;
+  flex-direction: column;
+}
+
+.each-product{
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  column-gap: 20px;
+}
+
+.each-product img{
+  width: 100px;
+  height: auto;
+  
+}
+
+.details{
+  display: flex;
+  flex-direction: column;
+}

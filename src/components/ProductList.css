@@ -1,0 +1,41 @@
+h2{
+  margin-left: 20px;
+}
+
+.product-list{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  padding: 20px;
+}
+
+.product-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.product-item img {
+  width: 100%;
+  height: auto;
+  max-height: 150px;
+  object-fit: contain;
+}
+
+.product-item:hover {
+  transform: scale(1.05);
+}
+
+.product-item a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  display: block;
+  margin: 10px 0;
+}
+
+.product-item a:hover {
+  color: #457b9d;
+}
