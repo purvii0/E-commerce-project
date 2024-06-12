@@ -1,10 +1,10 @@
-// const items = localStorage.getItem("cartitems") != null
-// ? JSON.parse(localStorage.getItem("cartitems")):
-// [];
+const items = localStorage.getItem('cartitems') != null
+? JSON.parse(localStorage.getItem('cartitems')):
+[];
 
-// const count = localStorage.getItem("totalcartcount") != null
-// ? JSON.parse(localStorage.getItem("totalcartcount")):
-// 0;
+const count = localStorage.getItem('totalcartcount') != null
+? JSON.parse(localStorage.getItem('totalcartcount')):
+0;
 
 const setItemFun = (item,cartcount) =>{
   localStorage.setItem('cartitems', JSON.stringify(item));
@@ -15,8 +15,8 @@ const setItemFun = (item,cartcount) =>{
 //state.cartItems.map(item => item)
 //state.cartCount
 const initialState = {
-  cartCount: 0,
-  cartItems: [],
+  cartCount: count,
+  cartItems: items,
   order: []
 };
 
@@ -30,14 +30,14 @@ const cartReducer = (state = initialState, action) => {
       if (existingProductIndex !== -1) {
         const updatedCartItems = [...state.cartItems];
         updatedCartItems[existingProductIndex].quantity += 1;
-        setItemFun(JSON.stringify(updatedCartItems),JSON.stringify(state.cartCount+1));
+        setItemFun(updatedCartItems,state.cartCount+1);
         return {
           ...state,
           cartCount: state.cartCount + 1,
           cartItems: updatedCartItems,
         };
       } else {
-        setItemFun(JSON.stringify([...state.cartItems, { ...action.payload, quantity: 1 }]),JSON.stringify(state.cartCount+1));
+        setItemFun([...state.cartItems, { ...action.payload, quantity: 1 }],state.cartCount+1);
         return {
           ...state,
           cartCount: state.cartCount + 1,
@@ -49,7 +49,7 @@ const cartReducer = (state = initialState, action) => {
       const updatedCartItemsRemove = state.cartItems.filter(
         (item) => item.id !== action.payload.id
       );
-      setItemFun(JSON.stringify(updatedCartItemsRemove),JSON.stringify(state.cartCount - action.payload.quantity));
+      setItemFun(updatedCartItemsRemove,state.cartCount - action.payload.quantity);
       return {
         ...state,
         cartCount: state.cartCount - action.payload.quantity,
@@ -63,14 +63,14 @@ const cartReducer = (state = initialState, action) => {
       if (incrementProductIndex !== -1) {
         const updatedCartItems = [...state.cartItems];
         updatedCartItems[incrementProductIndex].quantity += 1;
-        setItemFun(JSON.stringify(updatedCartItems),JSON.stringify(state.cartCount+1));
+        setItemFun(updatedCartItems,state.cartCount+1);
         return {
           ...state,
           cartCount: state.cartCount + 1,
           cartItems: updatedCartItems,
         };
       }
-      setItemFun(JSON.stringify(state.cartItems),JSON.stringify(state.cartCount));
+      setItemFun(state.cartItems,state.cartCount);
       return state;
 
     case "DECREMENT_CART_ITEM":
@@ -83,16 +83,16 @@ const cartReducer = (state = initialState, action) => {
       ) {
         const updatedCartItems = [...state.cartItems];
         updatedCartItems[decrementProductIndex].quantity -= 1;
-        setItemFun(JSON.stringify(updatedCartItems),JSON.stringify(state.cartCount-1));
+        setItemFun(updatedCartItems,state.cartCount-1);
         return {
           ...state,
           cartCount: state.cartCount - 1,
           cartItems: updatedCartItems,
         };
       } else {
-        setItemFun(JSON.stringify(state.cartItems.filter(
+        setItemFun(state.cartItems.filter(
           (item) => item.id !== action.payload.id
-        )),JSON.stringify(state.cartCount-1));
+        ),state.cartCount-1);
         return {
           ...state,
           cartCount: state.cartCount - 1,
@@ -103,14 +103,14 @@ const cartReducer = (state = initialState, action) => {
       }
 
     case "SHOW_ORDER":
-      setItemFun(JSON.stringify(state.cartItems),JSON.stringify(state.cartCount));
+      setItemFun(state.cartItems,state.cartCount);
       return {
         ...state,
         order: state.cartItems
       };
 
     case "CLEAR_CART":
-      setItemFun(JSON.stringify([]),JSON.stringify(0));
+      setItemFun([],0);
       return {
         ...state,
         cartCount: 0,
@@ -124,3 +124,5 @@ const cartReducer = (state = initialState, action) => {
 };
 
 export default cartReducer;
+
+
